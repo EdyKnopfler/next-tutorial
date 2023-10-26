@@ -52,6 +52,7 @@ export default function Page() {
             * Serving images in modern formats, like WebP and AVIF, when the browser supports it.
             
             Tudo isso inteiramente de grátis e sem nenhum custo adicional!
+            Sempre defina width e height pois o aspect ratio será usado pelo Next.js.
           */}
           <Image
             src="/hero-desktop.png"
