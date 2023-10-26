@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: "dashboard"
+      POSTGRES_PASSWORD: "parangaricutirimijuaro"
+    ports:
+      - "5432:5432"
