@@ -4,6 +4,8 @@
 import { z } from 'zod';
 
 import db from './db';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 const InvoiceSchema = z.object({
   id: z.string(),
@@ -33,6 +35,9 @@ export async function createInvoice(formData: FormData) {
     `,
     [customerId, amountInCents, status, date]
   );
+
+  revalidatePath('/dashboard/invoices');
+  redirect('/dashboard/invoices');
 }
 
 export async function deleteInvoice() {
