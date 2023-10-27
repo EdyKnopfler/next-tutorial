@@ -32,6 +32,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
       <label htmlFor="search" className="sr-only">
         Search
       </label>
+      {/* defaultValue: mantendo o input sincronizado com a querystring */}
       <input
         className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
         placeholder={placeholder}
