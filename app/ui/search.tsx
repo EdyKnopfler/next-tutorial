@@ -9,6 +9,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
   const { replace } = useRouter();
   const pathname = usePathname();
 
+  // Aguardar a digitação parar para iniciar a busca (debounce)
   const handleSearch = useDebouncedCallback((term) => {
     console.log(`Searching... ${term}`);
 
