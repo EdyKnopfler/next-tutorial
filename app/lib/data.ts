@@ -34,6 +34,7 @@ export async function fetchRevenue() {
 }
 
 export async function fetchLatestInvoices() {
+  //throw new Error('este falhou, não vou mostrar')
   try {
     const data = await db.query(`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id

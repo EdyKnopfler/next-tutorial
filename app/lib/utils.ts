@@ -67,3 +67,12 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     totalPages,
   ];
 };
+
+export const valueIfFulfilled = (settledPromise: PromiseSettledResult<any>): any => {
+  if (settledPromise.status == 'fulfilled') {
+    return settledPromise.value;
+  }
+
+  console.error('ERROR', settledPromise.reason);
+  return null;
+}
