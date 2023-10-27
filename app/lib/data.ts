@@ -106,26 +106,31 @@ export async function fetchFilteredInvoices(
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
-    const invoices = await db.query(`
-      SELECT
-        invoices.id,
-        invoices.amount,
-        invoices.date,
-        invoices.status,
-        customers.name,
-        customers.email,
-        customers.image_url
-      FROM invoices
-      JOIN customers ON invoices.customer_id = customers.id
-      WHERE
-        customers.name ILIKE ${`%${query}%`} OR
-        customers.email ILIKE ${`%${query}%`} OR
-        invoices.amount::text ILIKE ${`%${query}%`} OR
-        invoices.date::text ILIKE ${`%${query}%`} OR
-        invoices.status ILIKE ${`%${query}%`}
-      ORDER BY invoices.date DESC
-      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
-    `);
+    const inStringQuery = `%${query}%`;
+
+    const invoices = await db.query(
+      `
+        SELECT
+          invoices.id,
+          invoices.amount,
+          invoices.date,
+          invoices.status,
+          customers.name,
+          customers.email,
+          customers.image_url
+        FROM invoices
+        JOIN customers ON invoices.customer_id = customers.id
+        WHERE
+          customers.name ILIKE $1 OR
+          customers.email ILIKE $2 OR
+          invoices.amount::text ILIKE $3 OR
+          invoices.date::text ILIKE $4 OR
+          invoices.status ILIKE $5
+        ORDER BY invoices.date DESC
+        LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+      `,
+      new Array(5).fill(inStringQuery)
+    );
 
     return invoices.rows;
   } catch (error) {
