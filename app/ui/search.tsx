@@ -22,6 +22,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
     } else {
       params.delete('query');
     }
+
+    // Substituindo a busca na URL com useSarchParams, replace e usePathname
     replace(`${pathname}?${params.toString()}`);
   }, 300);
 
