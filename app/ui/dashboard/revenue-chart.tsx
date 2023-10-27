@@ -8,7 +8,7 @@ import { lusitana } from '@/app/ui/fonts';
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
 
-export default async function RevenueChart() {
+export default async function RevenueChart({ revenue }) {
   const chartHeight = 350;
   const { yAxisLabels, topLabel } = generateYAxis(revenue);
 
