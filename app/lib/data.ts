@@ -12,8 +12,14 @@ import db from './db';
 import { formatCurrency } from './utils';
 
 export async function fetchRevenue() {
+  // O noStore() não foi necessário, por algum motivo a página
+  // já está sendo renderizada dinamicamente (App Router?)
+
   // Add noStore() here prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
+
+  // Simulando demora
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   try {
     // Artificially delay a reponse for demo purposes.

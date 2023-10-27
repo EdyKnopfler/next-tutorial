@@ -4,20 +4,19 @@ import RevenueChart from "../ui/dashboard/revenue-chart";
 import { lusitana } from "../ui/fonts";
 import { fetchCardData, fetchLatestInvoices, fetchRevenue } from "../lib/data";
 import { valueIfFulfilled } from "../lib/utils";
+import { Suspense } from "react";
+import { RevenueChartSkeleton } from "../ui/dashboard/skeletons";
 
 // Páginas podem ser async :)
 export default async function Page() {
   const [
-    revenueResult,
     latestInvoicesResult,
     cardDataResult
   ] = await Promise.allSettled([
-    fetchRevenue(), 
     fetchLatestInvoices(), 
     fetchCardData()
   ]);
 
-  const revenue = valueIfFulfilled(revenueResult);
   const latestInvoices = valueIfFulfilled(latestInvoicesResult);
   const cardData = valueIfFulfilled(cardDataResult);
 
@@ -33,7 +32,9 @@ export default async function Page() {
         <Card title="Total Customers" value={cardData?.numberOfCustomers} type="customers" />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <RevenueChart revenue={revenue || []} />
+        <Suspense fallback={<RevenueChartSkeleton />}>
+          <RevenueChart />
+        </Suspense>
         <LatestInvoices latestInvoices={latestInvoices || []} />
       </div>
     </main>
