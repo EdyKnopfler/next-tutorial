@@ -12,7 +12,7 @@ export const { auth, signIn, signOut } = NextAuth({
     Credentials({
       async authorize(credentials) {
         return await validateCredentials(credentials);
-      }
+      },
     }),
   ],
 });
