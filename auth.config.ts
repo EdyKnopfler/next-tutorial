@@ -1,4 +1,4 @@
-// Faz uso da variável de ambiente AUTH_SECRET
+// Faz uso das variáveis de ambiente NEXTAUTH_SECRET e NEXTAUTH_URL
 import { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
