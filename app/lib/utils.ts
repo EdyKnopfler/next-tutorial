@@ -76,3 +76,11 @@ export const valueIfFulfilled = (settledPromise: PromiseSettledResult<any>): any
   console.error('ERROR', settledPromise.reason);
   return null;
 }
+
+export const handleError = (error: any, message: string) => {
+  const reportTime = new Date();
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  console.error(`ERROR at ${reportTime.toISOString()}`, error);
+  throw new Error(
+    `${message} (at ${reportTime.toLocaleString()} ${timezone})`);
+}
