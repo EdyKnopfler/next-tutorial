@@ -169,15 +169,18 @@ export async function fetchInvoicesPages(query: string) {
 
 export async function fetchInvoiceById(id: string) {
   try {
-    const data = await db.query(`
-      SELECT
-        invoices.id,
-        invoices.customer_id,
-        invoices.amount,
-        invoices.status
-      FROM invoices
-      WHERE invoices.id = ${id};
-    `);
+    const data = await db.query(
+      `
+        SELECT
+          invoices.id,
+          invoices.customer_id,
+          invoices.amount,
+          invoices.status
+        FROM invoices
+        WHERE invoices.id = $1;
+      `,
+      [id]
+    );
 
     const invoice = data.rows.map((invoice) => ({
       ...invoice,
