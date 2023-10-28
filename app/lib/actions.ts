@@ -98,8 +98,14 @@ export async function authenticate(
   try {
     await signIn('credentials', Object.fromEntries(formData));
   } catch (error) {
-    if ((error as Error).message.includes('CredentialsSignin')) {
+    const message = (error as Error).message;
+
+    if (message.includes('CredentialsSignin')) {
       return 'CredentialSignin';
+    }
+
+    if (message === 'NEXT_REDIRECT') {
+      throw error;
     }
 
     return handleError(error, 'Failed to authenticate');
